@@ -59,7 +59,8 @@ class MTUFinder:
             else:
                 return self.PingResult.EXCEPTION
 
-        except Exception:
+        except Exception as e:
+            logging.error(e)
             return self.PingResult.EXCEPTION
 
     def find_mtu(self):
@@ -67,7 +68,6 @@ class MTUFinder:
             logging.error("icmp is not available")
             exit(1)
 
-        print(self.ping_host(0))
         if self.ping_host(0) != self.PingResult.OK:
             logging.error("host is silent")
             exit(1)
@@ -85,7 +85,7 @@ class MTUFinder:
             else:
                 logging.error("error in ping host")
                 exit(1)
-        return r
+        return r + 28
 
 
 def main():
